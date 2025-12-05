@@ -21,6 +21,8 @@ spot_color = "red"
 clicked_color = "dark red"
 score = 0
 
+font = ("Comic Sans MS", 20, "normal")
+
 
 # Initialize turtle as "Game"
 
@@ -29,6 +31,7 @@ game.shape("circle")
 
 # Score Writer
 score_writer = trtl.Turtle()
+scorebox = 120
 
 # Turtle features
 
@@ -39,11 +42,28 @@ game.shapesize(5)
 
 # Game functions
 
-# Score Maker
+# Score Box
+def scoreBox():
+    score_writer.hideturtle()
+    score_writer.penup()
+    score_writer.goto(-475, 400)
+    score_writer.pendown()
+    for scoreDraw in range(2):
+        score_writer.forward(scorebox)
+        score_writer.right(90)
+        score_writer.forward(scorebox / 2)
+        score_writer.right(90)
+
+    score_writer.penup()
+    score_writer.goto(-450, 350)
+
+
+# Score Updater
 def update_score():
     global score
     score += 1
     print("Score:",score)
+    score_writer.write(score, font = font)
 
 # Change turtle position
 def change_pos():
@@ -58,13 +78,11 @@ def click(x, y):
     game.color(spot_color)
     change_pos()
 
-def score_update():
-    print("Scorewriter is not ready at this time")
-
 # Game Events
 
 game.onclick(click)
 
+scoreBox()
 
 # Screen
 wn.mainloop()
