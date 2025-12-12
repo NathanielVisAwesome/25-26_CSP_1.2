@@ -16,6 +16,7 @@ teacher = "A. Kiedes"
 # Initialize screen
 
 wn = trtl.Screen()
+wn.title("nVte's Aim  Trainer")
 
 #Credits
 
@@ -96,7 +97,6 @@ score_counter.speed(0)
 
 # Scene Setup
 wn.bgcolor(bgcolor)
-wn.title("nVte's Aim  Trainer")
 
 #Update Font Size if it gets too big.
 fontScale = 5

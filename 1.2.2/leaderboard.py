@@ -8,9 +8,11 @@ bronze_score = 15
 silver_score = 20
 gold_score = 25
 
+score_number = 0
 
 # return names in the leaderboard file
 def get_names(file_name):
+    global score_number
     leaderboard_file = open(file_name, "r")  # be sure you have created this
 
     # use a for loop to iterate through the content of the file, one line at a time
@@ -21,6 +23,9 @@ def get_names(file_name):
         index = 0
 
         # TODO 1: use a while loop to read the leader name from the line (format is "leader_name,leader_score")
+        while line[index] != ",":
+            leader_name = leader_name + line[index]
+            index = index + 1
 
         # TODO 2: add the player name to the names list
         names.append(leader_name)
