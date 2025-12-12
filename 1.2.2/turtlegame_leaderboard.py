@@ -1,7 +1,10 @@
 # Import stuff
 
+# 1.2.2 File
+
 import turtle as trtl
 import random as rand
+import leaderboard as lb
 
 # Creator Specialities
 
@@ -24,23 +27,38 @@ cred.pd()
 cred.teleport(-450,-375)
 cred.write((gameName,"Game by:",creator,"In",teacher+"'s",schoolClass,"class"))
 
-# Game configuration
+#---Game configuration
 
-# LISTS
+# Leaderboard
+
+leaderboardFileName = "leaderboard.txt"
+player_name = input("What is your name?")
+
+
+
+# Spot config
 
 spot_color = "yellow"
 clicked_color = "light blue"
 score = 0
 
+# Font config
+
 font = "Comic Sans MS"
 fontType = "normal"
 fontSize = 30
 
+# Scene config
+
 bgcolor = "sky blue"
+
+# Timer config
 
 timer = 30
 timerDone = False
 counter_interval = 1000
+
+# gameStart variables
 
 clickCircle = False
 
@@ -78,6 +96,7 @@ score_counter.speed(0)
 
 # Scene Setup
 wn.bgcolor(bgcolor)
+wn.title("nVte's Aim  Trainer")
 
 #Update Font Size if it gets too big.
 fontScale = 5
@@ -113,6 +132,22 @@ def scoreBox():
     score_counter.teleport(-450, 350)
     score_counter.write(score, font=fontSettings)
     clickCircle = True
+
+def manage_leaderboard():
+  global score
+  global game
+
+  # get the names and scores from the leaderboard file
+  leader_names_list = lb.get_names(leaderboardFileName)
+  leader_scores_list = lb.get_scores(leaderboardFileName)
+
+  # show the leaderboard with or without the current player
+  if len(leader_scores_list) < 5 or score >= leader_scores_list[4]:
+    lb.update_leaderboard(leaderboardFileName, leader_names_list, leader_scores_list, player_name, score)
+    lb.draw_leaderboard(True, leader_names_list, leader_scores_list, game, score)
+
+  else:
+    lb.draw_leaderboard(False, leader_names_list, leader_scores_list, game, score)
 
 # Score Updater
 def update_score():
@@ -154,12 +189,13 @@ def countdown():
   if timer <= 0:
     counter.write("Time's Up", font=fontSettings)
     timerDone = True
+    manage_leaderboard()
   else:
     counter.write("Timer: " + str(timer), font=fontSettings)
     timer -= 1
     counter.getscreen().ontimer(countdown, counter_interval)
 
-def startGame(x,y):
+def start_game(x, y):
     global play
 
     if play == "startGame" and clickCircle:
@@ -175,12 +211,14 @@ play = "startGame"
 
 # Game Events
 
-game.onclick(startGame)
+game.onclick(start_game)
 
-if game.onclick(startGame) and play == "startGame":
+if game.onclick(start_game) and play == "startGame":
     game.onclick(click)
+elif game.onclick(click) and play == "gameOver":
+    print("Game Over!")
 else:
-    game.onclick(startGame)
+    game.onclick(start_game)
 
 scoreBox()
 
