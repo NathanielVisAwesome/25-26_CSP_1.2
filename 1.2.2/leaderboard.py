@@ -7,6 +7,7 @@ silver_score = 20
 gold_score = 25
 
 score_number = 0
+wawa2 = 0
 
 # return names in the leaderboard file
 def get_names(file_name):
@@ -32,7 +33,6 @@ def get_names(file_name):
 
     #  return the names list in place of the empty list
     return names
-
 
 # return scores from the leaderboard file
 def get_scores(file_name):
