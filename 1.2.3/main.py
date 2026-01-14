@@ -34,7 +34,6 @@ def reset_apple(active_apple):
         # Set the random letter to our current letter
         current_letter = letters.pop(index)
         # Goto: x and y -> randomize each
-        # Todo: Fix the randomness thing
         # active_apple.goto(rand.randint(-(screen_width)/2, (screen_width)/2), rand.randint(-(screen_height)/2, (screen_height)/2))
         apple.goto(200, 200)
         draw_apple(active_apple, current_letter)
